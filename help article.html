@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get a Single Post by ID — Alex, Technical Writer</title>
+  <meta name="description" content="Help article: fetch one specific post from the JSONPlaceholder test API.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a class="brand" href="index.html">Alex · Technical Writer</a>
+      <a href="quickstart.html">Quickstart</a>
+      <a href="help-article-fetch-single-post.html" aria-current="page">Help Article</a>
+      <a href="troubleshooting-jsonplaceholder-errors.html">Troubleshooting</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Get a Single Post by ID</h1>
+    <p class="subtitle">Use this endpoint to fetch one specific post from the JSONPlaceholder test API. It is the fastest way to check whether your integration is reading data correctly.</p>
+
+    <h2>The request</h2>
+    <pre><code>GET https://jsonplaceholder.typicode.com/posts/1</code></pre>
+    <p>The <code>1</code> at the end of the URL is the <strong>post ID</strong>. Change it to fetch a different post. Valid IDs are <code>1</code> through <code>100</code>.</p>
+
+    <h2>Example</h2>
+    <pre><code class="language-bash">curl https://jsonplaceholder.typicode.com/posts/1</code></pre>
+
+    <h2>Example response</h2>
+    <pre><code class="language-json">{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}</code></pre>
+
+    <table>
+      <thead>
+        <tr><th>Field</th><th>What it is</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>userId</code></td><td>The ID of the user who wrote the post</td></tr>
+        <tr><td><code>id</code></td><td>The post's unique ID — this matches the ID you asked for</td></tr>
+        <tr><td><code>title</code></td><td>The post's headline</td></tr>
+        <tr><td><code>body</code></td><td>The full text of the post</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>The endpoint only supports <code>GET</code>. Sending data to it has no effect.</li>
+      <li>Requesting an ID outside <code>1</code>–<code>100</code> (for example <code>/posts/999</code>) returns an <strong>empty response</strong>, not an error — see <em>Troubleshooting</em> below.</li>
+      <li>Responses are always JSON. No authentication is required.</li>
+    </ul>
+
+    <h2>Try next</h2>
+    <ul>
+      <li>The <a href="quickstart.html">API quickstart walkthrough</a> — a guided, hands-on pass with curl.</li>
+      <li><a href="troubleshooting-jsonplaceholder-errors.html">Fix common JSONPlaceholder request errors</a> — what to do when a request fails.</li>
+    </ul>
+
+    <nav class="prev-next">
+      <a href="quickstart.html">&larr; API quickstart</a>
+      <a class="next" href="troubleshooting-jsonplaceholder-errors.html">Troubleshooting guide &rarr;</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <span>Alex — technical writer, API documentation</span>
+      <span><a href="index.html">All samples</a></span>
+    </div>
+  </footer>
+</body>
+</html>

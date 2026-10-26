@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fix Common JSONPlaceholder Request Errors — Alex, Technical Writer</title>
+  <meta name="description" content="Troubleshooting guide: five frequent JSONPlaceholder failures and their fixes.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a class="brand" href="index.html">Alex · Technical Writer</a>
+      <a href="quickstart.html">Quickstart</a>
+      <a href="help-article-fetch-single-post.html">Help Article</a>
+      <a href="troubleshooting-jsonplaceholder-errors.html" aria-current="page">Troubleshooting</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Fix Common JSONPlaceholder Request Errors</h1>
+    <p class="subtitle">This guide covers the most frequent problems when calling the JSONPlaceholder test API, how to recognize each one, and how to fix it. Start with the symptom that matches what you see.</p>
+
+    <h2>1. You got a 404 and expected data</h2>
+    <p><strong>What it looks like:</strong></p>
+    <pre><code>curl https://jsonplaceholder.typicode.com/posts/999
+{}</code></pre>
+    <p>An empty <code>{}</code> with no error message.</p>
+    <p><strong>What's happening:</strong> You asked for a post ID that doesn't exist. JSONPlaceholder only has posts with IDs <code>1</code> through <code>100</code>.</p>
+    <p><strong>How to fix it:</strong> Use an ID between <code>1</code> and <code>100</code>:</p>
+    <pre><code class="language-bash">curl https://jsonplaceholder.typicode.com/posts/1</code></pre>
+
+    <h2>2. You expected one post but got an array</h2>
+    <p><strong>What it looks like:</strong> The response starts with <code>[</code> and contains many posts instead of one.</p>
+    <p><strong>What's happening:</strong> You called <code>/posts</code> (all posts) instead of <code>/posts/{id}</code> (one post). A missing or mistyped ID returns the full list.</p>
+    <p><strong>How to fix it:</strong> Add the ID to the URL:</p>
+    <pre><code class="language-bash"># Returns everything (probably not what you want):
+curl https://jsonplaceholder.typicode.com/posts
+
+# Returns one post:
+curl https://jsonplaceholder.typicode.com/posts/1</code></pre>
+
+    <h2>3. curl can't reach the server</h2>
+    <p><strong>What it looks like:</strong></p>
+    <pre><code>curl: (6) Could not resolve host: jsonplaceholder.typicode.com</code></pre>
+    <p><strong>What's happening:</strong> Your computer can't find the server — usually a network connection problem or a typo in the URL.</p>
+    <p><strong>How to fix it:</strong></p>
+    <ol>
+      <li>Check your internet connection.</li>
+      <li>Retype the URL carefully. The domain is <code>jsonplaceholder.typicode.com</code> — easy to misspell.</li>
+      <li>Make sure you are using <code>https://</code>, not <code>http://</code>. Plain HTTP is redirected and can confuse some tools.</li>
+    </ol>
+
+    <h2>4. You see a 500 error</h2>
+    <p><strong>What it looks like:</strong></p>
+    <pre><code>HTTP/1.1 500 Internal Server Error</code></pre>
+    <p><strong>What's happening:</strong> Something went wrong on the server side. JSONPlaceholder is a free demo service and occasionally has outages.</p>
+    <p><strong>How to fix it:</strong> Wait a minute and try the exact same request again. If it still fails after a few retries, check whether the service is down by opening the URL in your browser — if the browser fails too, the problem is not your code.</p>
+
+    <h2>5. The response isn't valid JSON</h2>
+    <p><strong>What it looks like:</strong> Your parser throws an error, or you see HTML instead of JSON.</p>
+    <p><strong>What's happening:</strong> The most common cause is a typo in the URL path (for example <code>/post/1</code> instead of <code>/posts/1</code>), which routes to a page that returns HTML.</p>
+    <p><strong>How to fix it:</strong> Compare your URL against the docs character by character. The resource paths are plural: <code>/posts</code>, <code>/comments</code>, <code>/users</code>.</p>
+
+    <h2>Still stuck?</h2>
+    <p>Work through the request step by step in the <a href="quickstart.html">API quickstart walkthrough</a> — it confirms each piece of a working request before moving on.</p>
+
+    <nav class="prev-next">
+      <a href="help-article-fetch-single-post.html">&larr; Help article</a>
+      <a class="next" href="index.html">All samples &rarr;</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <span>Alex — technical writer, API documentation</span>
+      <span><a href="index.html">All samples</a></span>
+    </div>
+  </footer>
+</body>
+</html>
